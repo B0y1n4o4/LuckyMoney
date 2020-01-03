@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<accessibility-service
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:description="@string/app_description"
+    android:accessibilityEventTypes="typeNotificationStateChanged|typeWindowContentChanged|typeWindowStateChanged|typeWindowsChanged"
+    android:accessibilityFeedbackType="feedbackAllMask"
+    android:packageNames="com.tencent.mm,com.alibaba.android.rimet"
+    android:notificationTimeout="10"
+    android:settingsActivity="xyz.monkeytong.hongbao.activities.SettingsActivity"
+    android:accessibilityFlags="flagDefault"
+    android:canPerformGestures="true"
+    android:canRetrieveWindowContent="true"/>

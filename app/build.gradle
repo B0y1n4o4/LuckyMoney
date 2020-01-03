@@ -1,0 +1,45 @@
+ apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion "26.0.3"
+    useLibrary 'org.apache.http.legacy'
+    defaultConfig {
+        applicationId "xyz.monkeytong.hongbao"
+        minSdkVersion 19
+        targetSdkVersion 26
+        versionCode 7
+        versionName "v1.0.0"
+        ndk {
+            //设置支持的SO库架构
+            abiFilters 'armeabi', 'armeabi-v7a' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+        }
+    }
+
+    signingConfigs {
+        releaseConfig {
+            storeFile file("../monkeytong.jks")
+            storePassword project.hasProperty("KEYSTORE_PASS") ? KEYSTORE_PASS : System.getenv("KEYSTORE_PASS")
+            keyAlias project.hasProperty("ALIAS_NAME") ? ALIAS_NAME : System.getenv("ALIAS_NAME")
+            keyPassword project.hasProperty("ALIAS_PASS") ? ALIAS_PASS : System.getenv("ALIAS_PASS")
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.releaseConfig
+        }
+    }
+}
+
+ dependencies {
+     implementation fileTree(include: ['*.jar'], dir: 'libs')
+     implementation 'com.tencent.bugly:crashreport_upgrade:latest.release'
+     //其中latest.release指代最新版本号，也可以指定明确的版本号，例如1.0.1
+     implementation 'com.tencent.bugly:nativecrashreport:latest.release'
+     //其中latest.release指代最新版本号，也可以指定明确的版本号，例如2.2.0
+     implementation 'com.android.support:support-v4:26.0.0'
+     implementation 'com.android.support:appcompat-v7:26.0.0'
+ }
