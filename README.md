@@ -2,8 +2,10 @@
 Wechat 和 DingDing 抢红包辅助功能APP
 
 临近新年，工具该准备齐全，备战各大群
-![image](https://github.com/B0y1n4o4/resources/raw/master/LuckyMoney/image/main.jpg)
-![image](https://github.com/B0y1n4o4/resources/raw/master/LuckyMoney/image/detail.jpg)
+
+![image](https://raw.githubusercontent.com/B0y1n4o4/LuckyMoney/master/image/main.jpg)
+
+![image](https://raw.githubusercontent.com/B0y1n4o4/LuckyMoney/master/image/detail.jpg)
 
 
 ## 问题
@@ -36,5 +38,6 @@ Wechat 和 DingDing 抢红包辅助功能APP
 ## 赞赏
 
 我不介意你请我喝杯咖啡
-![image](https://github.com/B0y1n4o4/resources/raw/master/LuckyMoney/image/pay.jpg)
+
+![image](https://raw.githubusercontent.com/B0y1n4o4/LuckyMoney/master/image/pay.jpg)
 
