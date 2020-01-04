@@ -34,7 +34,7 @@
     <string name="watch_notifications_hint">消息通知中的红包提示并进入聊天页(未实现)</string>
     <string name="watch_list">监视聊天列表</string>
     <string name="watch_list_hint">聊天列表中的红包提示并进入聊天页</string>
-    <string name="anti_block_options">防封号选项</string>
+    <string name="anti_block_options">需求选项</string>
     <string name="auto_open_packets">自动拆开红包</string>
     <string name="open_with_delay">延时拆开红包</string>
     <string name="open_self">拆开自己发的红包</string>

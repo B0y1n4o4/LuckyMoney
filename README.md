@@ -15,17 +15,6 @@ Wechat 和 DingDing 抢红包辅助功能APP
 
 > 各种不知道的八阿哥
 
-## 更新日志
-
-#### [v1.0](https://github.com/B0y1n4o4/resources/raw/master/LuckyMoney/apk/v1.0_release.apk)(2020-01-03)
-> 监视聊天页面 发现红包自动领取
-
-> 增加聊天列表的监控
-
-> 支持自动收账
-
-> 支持屏蔽关键词
-
 
 ## TODO
 > 增加通知栏的监控

@@ -43,7 +43,6 @@ public class HongbaoService extends AccessibilityService implements SharedPrefer
     private static final String WECHAT_VIEW_OTHERS_CH = "领取红包";
     private static final String WECHAT_NOTIFICATION_TIP = "[微信红包]";
     private static final String WECHAT_LUCKMONEY_RECEIVE_ACTIVITY = ".plugin.luckymoney.ui";
-
     private static final String WECHAT_LUCKMONEY_DETAIL_ACTIVITY = "LuckyMoneyDetailUI";
     private static final String WECHAT_LUCKMONEY_GENERAL_ACTIVITY = "LauncherUI";
     private static final String WECHAT_LUCKMONEY_CHATTING_ACTIVITY = "ChattingUI";
@@ -64,13 +63,9 @@ public class HongbaoService extends AccessibilityService implements SharedPrefer
     public static final String BUTTON_CLASS_NAME = "android.widget.Button";
 
     public static final String DINGDING_CHAT_LIST_ID = "com.alibaba.android.rimet:id/session_content_tv";
-
     public static final String DINGDING_OPEN_CLASS_NAME = "com.alibaba.android.dingtalk.redpackets.activities.FestivalRedPacketsPickActivity";
-
     public static final String DINGDING_PACKAGE_NAME = "com.alibaba.android.rimet";
-
     public static final String DINGDING_PACKAGE_RESOURCE = "com.alibaba.android.rimet:id/redpackets_desc";
-
     public static final String DINGDING_PACKAGE_UNPACK = "拼手气红包";
     public static final String DINGDING_PACKAGE_UNPACK2 = "个人红包";
     public static final String DINGDING_PACKAGE_UNPACK_TEXT = "[红包]";
