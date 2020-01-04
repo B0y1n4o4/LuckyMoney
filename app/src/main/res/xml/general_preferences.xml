@@ -49,6 +49,13 @@
                 android:title="@string/skip_phrases"
                 android:summary="@string/pref_watch_exclude_words_summary"
                 android:layout="@layout/preference_checkbox"/>
+
+        <CheckBoxPreference
+            android:key="pref_dingding_watch"
+            android:title="@string/open_dingding"
+            android:layout="@layout/preference_checkbox"
+            android:defaultValue="true"/>
+
     </PreferenceCategory>
     <PreferenceCategory
             android:title="@string/about"

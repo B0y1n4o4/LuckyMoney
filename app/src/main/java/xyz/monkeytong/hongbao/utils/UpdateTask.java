@@ -6,12 +6,14 @@ import android.content.pm.PackageInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.widget.Toast;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONObject;
+
 import xyz.monkeytong.hongbao.R;
 import xyz.monkeytong.hongbao.activities.SettingsActivity;
 import xyz.monkeytong.hongbao.activities.WebViewActivity;
@@ -32,7 +34,8 @@ public class UpdateTask extends AsyncTask<String, String, String> {
     public UpdateTask(Context context, boolean needUpdate) {
         this.context = context;
         this.isUpdateOnRelease = needUpdate;
-        if (this.isUpdateOnRelease) Toast.makeText(context, context.getString(R.string.checking_new_version), Toast.LENGTH_SHORT).show();
+        if (this.isUpdateOnRelease)
+            Toast.makeText(context, context.getString(R.string.checking_new_version), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -92,7 +95,8 @@ public class UpdateTask extends AsyncTask<String, String, String> {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            if (this.isUpdateOnRelease) Toast.makeText(context, R.string.update_error, Toast.LENGTH_LONG).show();
+            if (this.isUpdateOnRelease)
+                Toast.makeText(context, R.string.update_error, Toast.LENGTH_LONG).show();
         }
     }
 

@@ -50,14 +50,14 @@ public class HongbaoService extends AccessibilityService implements SharedPrefer
 
     public static final String WECHAT_CHAT_CLASS_NAME = "com.tencent.mm.ui.LauncherUI";
     public static final String WECHAT_OPEN_CLASS_NAME = "com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyDetailUI";
-    public static final String NORMAL_PACKAGE_RESOURCE = "com.tencent.mm:id/b5q";
+    public static final String NORMAL_PACKAGE_RESOURCE = "com.tencent.mm:id/bal";
     public static final String WECHAT_PACKAGE_NAME = "com.tencent.mm";
     public static final String WECHAT_PACKAGE_UNPACK_TEXT2 = "[微信红包]";
     public static final String WECHAT_PACKAGE_UNPACK_TEXT1 = "微信红包";
     public static final String WECHAT_SURE_TRANSFOR_CLASS_NAME = "com.tencent.mm.plugin.remittance.ui.RemittanceDetailUI";
     public static final String WECHAT_UNPAKCAGE_CLASS_NAME = "com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyNotHookReceiveUI";
 
-    public static final String PAY_TEXT1 = "[转账]请你确认收钱";
+    public static final String PAY_TEXT1 = "[转账]请你确认收款";
     public static final String PAY_TEXT2 = "转账给你";
     public static final String SURE_PAY_TEXT = "确认收账";
 
@@ -72,13 +72,9 @@ public class HongbaoService extends AccessibilityService implements SharedPrefer
     public static final String DINGDING_PACKAGE_RESOURCE = "com.alibaba.android.rimet:id/redpackets_desc";
 
     public static final String DINGDING_PACKAGE_UNPACK = "拼手气红包";
-
     public static final String DINGDING_PACKAGE_UNPACK2 = "个人红包";
-
     public static final String DINGDING_PACKAGE_UNPACK_TEXT = "[红包]";
-
     public static final String DINGDING_TEXT = "[红包]";
-
     public static final String DINGDING_UNPACK_RESOURCE_ID = "com.alibaba.android.rimet:id/iv_pick_bottom";
 
     private String currentActivityName = WECHAT_LUCKMONEY_GENERAL_ACTIVITY;
@@ -216,7 +212,7 @@ public class HongbaoService extends AccessibilityService implements SharedPrefer
             return;
         }
 
-        if (charSequence.equals(DINGDING_OPEN_CLASS_NAME)) {
+        if (charSequence.equals(DINGDING_OPEN_CLASS_NAME) && sharedPreferences.getBoolean("pref_dingding_watch", false)) {
             Logger.d(TAG, "打开钉钉红包");
             if (android.os.Build.VERSION.SDK_INT >= 24) {
                 openDingDingPackageByViewId(paramAccessibilityEvent);
@@ -231,7 +227,7 @@ public class HongbaoService extends AccessibilityService implements SharedPrefer
         if (android.os.Build.VERSION.SDK_INT > 23) {
             Path path = new Path();
             final int x = metrics.widthPixels / 2;
-            // 目测大法 TODO -。-
+            // 目测大法 TODO -。- 效果还行
             final int y = metrics.heightPixels * 7 / 13;
             GestureDescription.Builder gestureBuilder = new GestureDescription.Builder();
             path.moveTo(x, y);
@@ -258,7 +254,7 @@ public class HongbaoService extends AccessibilityService implements SharedPrefer
     }
 
     private void checkMutex() {
-        while (mMutex) {
+        if (mMutex) {
             Logger.d(TAG, "CheckMutex");
             SystemClock.sleep(300L);
             mMutex = false;
@@ -396,7 +392,7 @@ public class HongbaoService extends AccessibilityService implements SharedPrefer
             return;
         }
 
-        if (accessibilityNodeInfo != null && accessibilityNodeInfo.getPackageName().equals(DINGDING_PACKAGE_NAME)) {
+        if (accessibilityNodeInfo != null && accessibilityNodeInfo.getPackageName().equals(DINGDING_PACKAGE_NAME) && sharedPreferences.getBoolean("pref_dingding_watch", false)) {
             Logger.d(TAG, "处理 content 变化 -- 钉钉");
             DingDingPackageByViewId(accessibilityNodeInfo);
             return;
