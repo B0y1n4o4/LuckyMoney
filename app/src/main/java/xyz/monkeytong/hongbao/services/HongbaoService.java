@@ -169,14 +169,17 @@ public class HongbaoService extends AccessibilityService implements SharedPrefer
             Logger.d(TAG, "未领取红包");
 
             if (paramAccessibilityEvent.getSource() != null) {
+                Logger.d(TAG, "paramAccessibilityEvent not Null");
                 openWeChatPackageByText(paramAccessibilityEvent);
                 return;
             } else {
                 int delayFlag = sharedPreferences.getInt("pref_open_delay", 0) * 100;
+                Logger.d(TAG, "PostDelayed");
                 new android.os.Handler().postDelayed(
                         new Runnable() {
                             public void run() {
                                 try {
+                                    Logger.d(TAG, "openWeChatPackageByMetrics");
                                     openWeChatPackageByMetrics();
                                 } catch (Exception e) {
                                     Logger.e(TAG, "Something Wrong");
@@ -333,12 +336,14 @@ public class HongbaoService extends AccessibilityService implements SharedPrefer
     public void openWeChatPackageByMetrics() {
         DisplayMetrics metrics = getResources().getDisplayMetrics();
         float dpi = metrics.densityDpi;
+        Logger.d(TAG, "mUnpackCount Numbers: " + mUnpackCount);
         if (android.os.Build.VERSION.SDK_INT > 23 && mUnpackCount > 0) {
             Path path = new Path();
             final int x = metrics.widthPixels / 2;
             final int y = metrics.heightPixels * 3 / 5;
             GestureDescription.Builder gestureBuilder = new GestureDescription.Builder();
             path.moveTo(x, y);
+            Logger.d(TAG, "Get Path: " + path.toString());
             gestureBuilder.addStroke(new GestureDescription.StrokeDescription(path, 200, 50));
 
             dispatchGesture(gestureBuilder.build(), new GestureResultCallback() {
@@ -347,7 +352,9 @@ public class HongbaoService extends AccessibilityService implements SharedPrefer
                     Logger.d(TAG, "onCompleted");
                     mMutex = true;
                     mUnpackCount = mUnpackCount - 1;
+                    Logger.d(TAG, "mUnpackCount Numbers:" + mUnpackCount);
                     super.onCompleted(gestureDescription);
+                    SystemClock.sleep(200);
                     checkMutex();
                 }
 
@@ -424,16 +431,21 @@ public class HongbaoService extends AccessibilityService implements SharedPrefer
     }
 
     private boolean WeChatPackage(AccessibilityNodeInfo AccessibilityNodeInfo) {
-        mUnpackCount = 0;
-        Iterator iterator = AccessibilityNodeInfo.findAccessibilityNodeInfosByText(WECHAT_PACKAGE_UNPACK_TEXT1).iterator();
-        while (iterator.hasNext()) {
-            AccessibilityNodeInfo accessibilityNodeInfo = ((AccessibilityNodeInfo) iterator.next()).getParent();
-            if (accessibilityNodeInfo != null && (accessibilityNodeInfo.getChildCount() == 3 || accessibilityNodeInfo.getChildCount() == 2)) {
-                    String excludeWords = sharedPreferences.getString("pref_watch_exclude_words", "");
-                    if (accessibilityNodeInfo.getChild(1).getText().toString().contains(WECHAT_ALREADY_DONE) || accessibilityNodeInfo.getChild(1).getText().toString().contains(WECHAT_ALREADY_NONE)) {
+//        mUnpackCount = 0;
+        List<android.view.accessibility.AccessibilityNodeInfo> UnPackage = AccessibilityNodeInfo.findAccessibilityNodeInfosByText(WECHAT_PACKAGE_UNPACK_TEXT1);
+        for (int i = 0; i < UnPackage.size(); i++) {
+            AccessibilityNodeInfo accessibilityNodeInfo = ((AccessibilityNodeInfo) UnPackage.get(i)).getParent();
+            if (accessibilityNodeInfo != null && (accessibilityNodeInfo.getChildCount() == 3 || accessibilityNodeInfo.getChildCount() == 2 || accessibilityNodeInfo.getChildCount() == 4)) {
+                String excludeWords = sharedPreferences.getString("pref_watch_exclude_words", "");
+                if ((accessibilityNodeInfo.getChild(1).getText().toString().contains(WECHAT_ALREADY_DONE) || accessibilityNodeInfo.getChild(1).getText().toString().contains(WECHAT_ALREADY_NONE))) {
+                    if (i == UnPackage.size() - 1) {
                         return false;
+                    } else {
+                        continue;
                     }
+                } else{
                     mUnpackCount += 1;
+                    Logger.d(TAG, "mUnpackCount Numbers: " + mUnpackCount);
                     String[] excludeWordsArray = excludeWords.split(" +");
                     String hongbaoContent = accessibilityNodeInfo.getChild(0).getText().toString();
                     for (String word : excludeWordsArray) {
@@ -442,18 +454,7 @@ public class HongbaoService extends AccessibilityService implements SharedPrefer
                     accessibilityNodeInfo.getChild(0).getParent().performAction(AccessibilityNodeInfo.ACTION_CLICK);
                     Logger.d(TAG, "处理 content 变化 -- 微信红包");
                     return true;
-//                if (accessibilityNodeInfo.getChildCount() == 2) {
-//                    String excludeWords = sharedPreferences.getString("pref_watch_exclude_words", "");
-//                    String[] excludeWordsArray = excludeWords.split(" +");
-//                    String hongbaoContent = accessibilityNodeInfo.getChild(0).getText().toString();
-//                    for (String word : excludeWordsArray) {
-//                        if (word.length() > 0 && hongbaoContent.contains(word)) return false;
-//                    }
-//                    accessibilityNodeInfo.getChild(0).getParent().performAction(AccessibilityNodeInfo.ACTION_CLICK);
-//                    Logger.d(TAG, "处理 content 变化 -- 微信红包");
-//                    return true;
-//                }
-
+                }
             }
         }
         return false;

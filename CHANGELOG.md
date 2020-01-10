@@ -11,3 +11,6 @@
 
 **[v1.0.2 (2020-01-10)](https://github.com/B0y1n4o4/LuckyMoney/releases/download/v1.0.2/app-release.apk)**
 - 修复新红包UI界面变化产生的BUG(重复点击)
+
+**[v1.0.3 (2020-01-10)](https://github.com/B0y1n4o4/LuckyMoney/releases/download/v1.0.3/app-release.apk)**
+- 修复漏包、漏点开按钮情况
