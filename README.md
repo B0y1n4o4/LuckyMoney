@@ -16,6 +16,15 @@ Wechat 和 DingDing 抢红包辅助功能APP
 > 各种不知道的八阿哥
 
 
+## 支持微信版本
+Version 7.0.10
+
+## 适配手机
+华为 EMUI 10 Android 10
+
+## 更新日志
+[CHANGELOG](https://github.com/B0y1n4o4/LuckyMoney/blob/master/CHANGELOG.md)
+
 ## TODO
 > 增加通知栏的监控
 
