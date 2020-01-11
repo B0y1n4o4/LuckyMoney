@@ -21,6 +21,7 @@ Version 7.0.10
 
 ## 适配手机
 华为 EMUI 10 Android 10
+小米 MIUI 11 Android 10
 
 ## 更新日志
 [CHANGELOG](https://github.com/B0y1n4o4/LuckyMoney/blob/master/CHANGELOG.md)

@@ -14,3 +14,6 @@
 
 **[v1.0.3 (2020-01-10)](https://github.com/B0y1n4o4/LuckyMoney/releases/download/v1.0.3/app-release.apk)**
 - 修复漏包、漏点开按钮情况
+
+**[v1.0.4 (2020-01-11)](https://github.com/B0y1n4o4/LuckyMoney/releases/download/v1.0.4/app-release.apk)**
+- 修复MIUI手机点开红包不拆开问题

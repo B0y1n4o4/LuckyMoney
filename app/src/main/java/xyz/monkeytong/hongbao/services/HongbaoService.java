@@ -339,10 +339,18 @@ public class HongbaoService extends AccessibilityService implements SharedPrefer
         Logger.d(TAG, "mUnpackCount Numbers: " + mUnpackCount);
         if (android.os.Build.VERSION.SDK_INT > 23 && mUnpackCount > 0) {
             Path path = new Path();
+//            if (640 == dpi) { //1440
+//                path.moveTo(720, 1575);
+//            } else if (320 == dpi) {//720p
+//                path.moveTo(355, 780);
+//            } else if (480 == dpi) {//1080p
+//                path.moveTo(533, 1115);
+//            } else{
             final int x = metrics.widthPixels / 2;
-            final int y = metrics.heightPixels * 3 / 5;
-            GestureDescription.Builder gestureBuilder = new GestureDescription.Builder();
+            final int y = metrics.heightPixels * 13 / 20;
             path.moveTo(x, y);
+//            }
+            GestureDescription.Builder gestureBuilder = new GestureDescription.Builder();
             Logger.d(TAG, "Get Path: " + path.toString());
             gestureBuilder.addStroke(new GestureDescription.StrokeDescription(path, 200, 50));
 
