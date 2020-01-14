@@ -18,6 +18,12 @@
                 android:summary="@string/watch_list_hint"
                 android:layout="@layout/preference_checkbox"
                 android:defaultValue="false"/>
+        <CheckBoxPreference
+            android:key="pref_watch_dingding_list"
+            android:title="@string/watch_dingding_list"
+            android:summary="@string/watch_list_hint"
+            android:layout="@layout/preference_checkbox"
+            android:defaultValue="false"/>
     </PreferenceCategory>
     <PreferenceCategory
             android:title="@string/anti_block_options"

@@ -66,12 +66,14 @@ public class HongbaoService extends AccessibilityService implements SharedPrefer
     public static final String BUTTON_CLASS_NAME = "android.widget.Button";
 
     public static final String DINGDING_CHAT_LIST_ID = "com.alibaba.android.rimet:id/session_content_tv";
+
     public static final String DINGDING_OPEN_CLASS_NAME = "com.alibaba.android.dingtalk.redpackets.activities.FestivalRedPacketsPickActivity";
     public static final String DINGDING_PACKAGE_NAME = "com.alibaba.android.rimet";
     public static final String DINGDING_PACKAGE_RESOURCE = "com.alibaba.android.rimet:id/redpackets_desc";
     public static final String DINGDING_PACKAGE_UNPACK = "拼手气红包";
     public static final String DINGDING_PACKAGE_UNPACK2 = "个人红包";
-    public static final String DINGDING_PACKAGE_UNPACK_TEXT = "[红包]";
+    public static final String DINGDING_PACKAGE_VIEW = "查看红包";
+
     public static final String DINGDING_TEXT = "[红包]";
     public static final String DINGDING_UNPACK_RESOURCE_ID = "com.alibaba.android.rimet:id/iv_pick_bottom";
 
@@ -289,7 +291,7 @@ public class HongbaoService extends AccessibilityService implements SharedPrefer
                 path.moveTo(i, j);
                 if (android.os.Build.VERSION.SDK_INT >= 24) {
                     Logger.d(TAG, "手势构建完成");
-                    boolean bool = dispatchGesture((new GestureDescription.Builder()).addStroke(new GestureDescription.StrokeDescription(path, 100L, 50L)).build(), new AccessibilityService.GestureResultCallback() {
+                    boolean bool = dispatchGesture((new GestureDescription.Builder()).addStroke(new GestureDescription.StrokeDescription(path, 200L, 200L)).build(), new AccessibilityService.GestureResultCallback() {
                         public void onCompleted(GestureDescription param1GestureDescription) {
                             Logger.d(TAG, "手势点击完成");
                             super.onCompleted(param1GestureDescription);
@@ -339,17 +341,9 @@ public class HongbaoService extends AccessibilityService implements SharedPrefer
         Logger.d(TAG, "mUnpackCount Numbers: " + mUnpackCount);
         if (android.os.Build.VERSION.SDK_INT > 23 && mUnpackCount > 0) {
             Path path = new Path();
-//            if (640 == dpi) { //1440
-//                path.moveTo(720, 1575);
-//            } else if (320 == dpi) {//720p
-//                path.moveTo(355, 780);
-//            } else if (480 == dpi) {//1080p
-//                path.moveTo(533, 1115);
-//            } else{
             final int x = metrics.widthPixels / 2;
             final int y = metrics.heightPixels * 13 / 20;
             path.moveTo(x, y);
-//            }
             GestureDescription.Builder gestureBuilder = new GestureDescription.Builder();
             Logger.d(TAG, "Get Path: " + path.toString());
             gestureBuilder.addStroke(new GestureDescription.StrokeDescription(path, 200, 50));
@@ -386,15 +380,15 @@ public class HongbaoService extends AccessibilityService implements SharedPrefer
 
     private void handleContentChanged(AccessibilityEvent paramAccessibilityEvent) {
         AccessibilityNodeInfo accessibilityNodeInfo = paramAccessibilityEvent.getSource();
+        // Logger.d(TAG, accessibilityNodeInfo.getClassName().toString());
         if (accessibilityNodeInfo != null && accessibilityNodeInfo.getPackageName().equals(WECHAT_PACKAGE_NAME)) {
-            Logger.d(TAG, accessibilityNodeInfo.getClassName().toString());
             if (sharedPreferences.getBoolean("pref_watch_list", false) && WeChatList(accessibilityNodeInfo)) {
-                Logger.d(TAG, "处理 content 变化 -- 微信聊天列表");
+                Logger.d(TAG, "处理 content 变化 -- 微信好友列表");
                 return;
             }
 
             if (sharedPreferences.getBoolean("pref_watch_chat", false)) {
-                Logger.d(TAG, "处理 content 变化 -- 微信");
+                Logger.d(TAG, "处理 content 变化 -- 微信聊天");
                 if (WeChatPackage(accessibilityNodeInfo))
                     return;
             }
@@ -407,21 +401,51 @@ public class HongbaoService extends AccessibilityService implements SharedPrefer
             return;
         }
 
-        if (accessibilityNodeInfo != null && accessibilityNodeInfo.getPackageName().equals(DINGDING_PACKAGE_NAME) && sharedPreferences.getBoolean("pref_dingding_watch", false)) {
-            Logger.d(TAG, "处理 content 变化 -- 钉钉");
-            DingDingPackageByViewId(accessibilityNodeInfo);
-            return;
+        if (accessibilityNodeInfo != null && accessibilityNodeInfo.getPackageName().equals(DINGDING_PACKAGE_NAME)) {
+            if (sharedPreferences.getBoolean("pref_watch_dingding_list", false) && DingDingList(accessibilityNodeInfo)) {
+                // 钉钉好友列表
+                Logger.d(TAG, "处理 content 变化 -- 钉钉好友列表");
+                return;
+            }
+
+            if (sharedPreferences.getBoolean("pref_dingding_watch", false)) {
+                // 聊天界面
+                Logger.d(TAG, "处理 content 变化 -- 钉钉");
+                DingDingPackageByViewId(accessibilityNodeInfo);
+                return;
+            }
         }
     }
 
+    private Boolean DingDingList(AccessibilityNodeInfo AccessibilityNodeInfo) {
+        for (AccessibilityNodeInfo accessibilityNodeInfo : AccessibilityNodeInfo.findAccessibilityNodeInfosByViewId(DINGDING_CHAT_LIST_ID)) {
+            if ((accessibilityNodeInfo.getText().toString().contains(DINGDING_TEXT)) && accessibilityNodeInfo.getParent().isClickable()) {
+                Logger.d(TAG, "发现钉钉聊天列表红包");
+                accessibilityNodeInfo.getParent().performAction(AccessibilityNodeInfo.ACTION_CLICK);
+                return true;
+            }
+        }
+        return false;
+    }
+
     private void DingDingPackageByViewId(AccessibilityNodeInfo paramAccessibilityNodeInfo) {
+
         Iterator iterator = paramAccessibilityNodeInfo.findAccessibilityNodeInfosByViewId(DINGDING_PACKAGE_RESOURCE).iterator();
         while (iterator.hasNext()) {
             AccessibilityNodeInfo accessibilityNodeInfo = ((AccessibilityNodeInfo) iterator.next()).getParent();
+            // 查看红包
+            // accessibilityNodeInfo.getChild(1).getText().toString()
             if (accessibilityNodeInfo != null && accessibilityNodeInfo.getChildCount() == 3 && (accessibilityNodeInfo.getChild(2).getText().toString().equals(DINGDING_PACKAGE_UNPACK) || accessibilityNodeInfo.getChild(2).getText().toString().equals(DINGDING_PACKAGE_UNPACK2))) {
-                Logger.d(TAG, "发现钉钉红包");
-                accessibilityNodeInfo.getChild(0).getParent().performAction(16);
-                SystemClock.sleep(200L);
+                String excludeWords = sharedPreferences.getString("pref_watch_exclude_words", "");
+                String[] excludeWordsArray = excludeWords.split(" +");
+                String hongbaoContent = accessibilityNodeInfo.getChild(0).getText().toString();
+                for (String word : excludeWordsArray) {
+                    if (word.length() > 0 && hongbaoContent.contains(word))
+                        return;
+                    Logger.d(TAG, "发现钉钉红包");
+                    accessibilityNodeInfo.getChild(0).getParent().performAction(16);
+                    SystemClock.sleep(200L);
+                }
             }
         }
     }
@@ -451,7 +475,7 @@ public class HongbaoService extends AccessibilityService implements SharedPrefer
                     } else {
                         continue;
                     }
-                } else{
+                } else {
                     mUnpackCount += 1;
                     Logger.d(TAG, "mUnpackCount Numbers: " + mUnpackCount);
                     String[] excludeWordsArray = excludeWords.split(" +");
