@@ -22,8 +22,8 @@
     <string name="github_2">本项目，支持应用开源</string>
     <string name="star_2">Star</string>
     <string name="star_1">★</string>
-    <string name="turn_on_toast">点击「微信红包」</string>
-    <string name="turn_on_error_toast">遇到一些问题,请手动打开系统设置>无障碍服务>微信红包(ฅ´ω`ฅ)</string>
+    <string name="turn_on_toast">点击「红包助手」</string>
+    <string name="turn_on_error_toast">遇到一些问题,请手动打开系统设置>无障碍服务>红包助手(ฅ´ω`ฅ)</string>
     <string name="webview_github_title">GitHub 项目主页</string>
     <string name="webview_alipay_title">支付宝红包</string>
     <string name="download_backend">正在后台下载</string>

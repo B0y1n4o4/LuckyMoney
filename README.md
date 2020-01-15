@@ -7,6 +7,11 @@ Wechat 和 DingDing 抢红包辅助功能APP
 
 ![image](https://raw.githubusercontent.com/B0y1n4o4/LuckyMoney/master/image/detail.jpg)
 
+## 使用说明
+
+为了充分发挥APP的作用，避免系统后台优化掉APP，可将APP系统后台自启动，后台活动打开
+
+![image](https://raw.githubusercontent.com/B0y1n4o4/LuckyMoney/master/image/manage.jpg)
 
 ## 问题
 > 钉钉自动抢红包存在八阿哥(自己没领到的红包中，无法判断是否点过)

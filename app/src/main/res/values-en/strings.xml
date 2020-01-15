@@ -22,8 +22,8 @@
     <string name="github_2">this app on GitHub to support us</string>
     <string name="star_2">Star</string>
     <string name="star_1">★</string>
-    <string name="turn_on_toast">Click 「WeChat Lucky Money」&#160;</string>
-    <string name="turn_on_error_toast">An error occurred. Please manually open System Settings > Accessibility > WeChat Lucky Money. (ฅ´ω`ฅ)</string>
+    <string name="turn_on_toast">Click 「Lucky Money」&#160;</string>
+    <string name="turn_on_error_toast">An error occurred. Please manually open System Settings > Accessibility > Lucky Money. (ฅ´ω`ฅ)</string>
     <string name="webview_github_title">Project Homepage on GitHub</string>
     <string name="webview_alipay_title">Get Luckymoney</string>
     <string name="download_backend">Downloading…</string>
