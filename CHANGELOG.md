@@ -1,5 +1,9 @@
 # 更新日志
 
+**[v1.0.6 (2020-01-15)](https://github.com/B0y1n4o4/LuckyMoney/releases/download/v1.0.6/app-release.apk)**
+- 修复隐藏问题，自动返回
+- 适配钉钉延时
+
 **[v1.0.5 (2020-01-14)](https://github.com/B0y1n4o4/LuckyMoney/releases/download/v1.0.5/app-release.apk)**
 - 增加钉钉好友列表监控
 - 增加钉钉屏蔽关键字

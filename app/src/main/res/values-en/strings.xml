@@ -36,6 +36,7 @@
     <string name="watch_dingding_list">Watch dingding chat list</string>
     <string name="watch_list_hint">Enter chat when a red packet is detected from chat list</string>
     <string name="anti_block_options">Require Options</string>
+    <string name="watch_myself_sum">Multi packats open multi</string>
     <string name="auto_open_packets">Open red packets automatically</string>
     <string name="open_with_delay">Open red packets with a delay</string>
     <string name="open_self">Open red packets I gave out</string>

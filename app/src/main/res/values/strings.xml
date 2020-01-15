@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">微信红包</string>
+    <string name="app_name">红包助手</string>
     <string name="app_version">v1.0</string>
     <string name="app_description">∠( ᐛ 」∠)_使用指南∠( ᐛ 」∠)_\n\n ○ 狠戳插件开关\n ○ 回到微信聊天\n ○ 坐等红包进账\n\n 遇到问题, 欢迎通过 GitHub Issue 反馈~\n https://github.com/B0y1n4o4/LuckyMoney</string>
     <string name="preference">偏好设置</string>
@@ -32,14 +32,15 @@
     <string name="watch_options">监视选项</string>
     <string name="watch_notifications">监视系统通知</string>
     <string name="watch_notifications_hint">消息通知中的红包提示并进入聊天页(未实现)</string>
-    <string name="watch_list">监视微信聊天列表</string>
-    <string name="watch_dingding_list">监视钉钉聊天列表</string>
-    <string name="watch_list_hint">聊天列表中的红包提示并进入聊天页</string>
-    <string name="anti_block_options">需求选项</string>
-    <string name="auto_open_packets">自动拆开红包</string>
+    <string name="watch_list">监视微信好友列表</string>
+    <string name="watch_dingding_list">监视钉钉好友列表</string>
+    <string name="watch_list_hint">好友列表中的红包提示并进入聊天页</string>
+    <string name="watch_myself_sum">多包会重复领</string>
+    <string name="anti_block_options">功能选项</string>
+    <string name="auto_open_packets">微信拆开红包</string>
     <string name="open_with_delay">延时拆开红包</string>
     <string name="open_self">拆开自己发的红包</string>
-    <string name="open_trans">自动收账</string>
+    <string name="open_trans">微信自动收账</string>
     <string name="open_dingding">钉钉拆开红包</string>
     <string name="skip_phrases">屏蔽红包文字</string>
     <string name="about">关于应用</string>
