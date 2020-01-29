@@ -1,5 +1,9 @@
 # 更新日志
 
+**[v1.0.6 (2020-01-29)](https://github.com/B0y1n4o4/LuckyMoney/releases/download/v1.0.7/app-release.apk)**
+- 增加红包屏蔽关键词 已过期
+- 增加收账判断
+
 **[v1.0.6 (2020-01-15)](https://github.com/B0y1n4o4/LuckyMoney/releases/download/v1.0.6/app-release.apk)**
 - 修复隐藏问题，自动返回
 - 适配钉钉延时

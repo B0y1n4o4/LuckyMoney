@@ -43,6 +43,7 @@ public class HongbaoService extends AccessibilityService implements SharedPrefer
     private static final String WECHAT_VIEW_OTHERS_CH = "领取红包";
     private static final String WECHAT_ALREADY_NONE = "已被领完";
     private static final String WECHAT_ALREADY_DONE = "已领取";
+    private static final String WECHAT_ALREADY_EXPIRE = "已过期";
 
     private static final String WECHAT_LUCKMONEY_RECEIVE_ACTIVITY = ".plugin.luckymoney.ui";
     private static final String WECHAT_LUCKMONEY_DETAIL_ACTIVITY = "LuckyMoneyDetailUI";
@@ -77,6 +78,8 @@ public class HongbaoService extends AccessibilityService implements SharedPrefer
     private AccessibilityNodeInfo rootNodeInfo, mReceiveNode, mUnpackNode;
     private boolean mLuckyMoneyPicked, mLuckyMoneyReceived;
     private int mUnpackCount = 0;
+    private int mUnsureCount = 0;
+
     private boolean mMutex = false, mListMutex = false, mChatMutex = false;
     private HongbaoSignature signature = new HongbaoSignature();
 
@@ -204,6 +207,7 @@ public class HongbaoService extends AccessibilityService implements SharedPrefer
                                 } catch (Exception e) {
                                     Logger.e(TAG, "Something Wrong");
                                     e.printStackTrace();
+                                    mUnsureCount = 0;
                                 }
                             }
                         }, delayFlag);
@@ -223,7 +227,7 @@ public class HongbaoService extends AccessibilityService implements SharedPrefer
     private void sureTransforNew() {
         DisplayMetrics metrics = getResources().getDisplayMetrics();
         float dpi = metrics.densityDpi;
-        if (android.os.Build.VERSION.SDK_INT > 23) {
+        if (android.os.Build.VERSION.SDK_INT > 23 && mUnsureCount > 0) {
             Path path = new Path();
             final int x = metrics.widthPixels / 2;
             // TODO 目测比例大法 -。- 效果还行
@@ -238,6 +242,7 @@ public class HongbaoService extends AccessibilityService implements SharedPrefer
                     Logger.d(TAG, "onCompleted");
                     mMutex = true;
                     super.onCompleted(gestureDescription);
+                    mUnsureCount = mUnsureCount - 1;
                     SystemClock.sleep(400L);
                     checkMutex();
                 }
@@ -466,7 +471,8 @@ public class HongbaoService extends AccessibilityService implements SharedPrefer
             AccessibilityNodeInfo accessibilityNodeInfo = ((AccessibilityNodeInfo) UnPackage.get(i)).getParent();
             if (accessibilityNodeInfo != null && (accessibilityNodeInfo.getChildCount() == 3 || accessibilityNodeInfo.getChildCount() == 2 || accessibilityNodeInfo.getChildCount() == 4)) {
                 String excludeWords = sharedPreferences.getString("pref_watch_exclude_words", "");
-                if ((accessibilityNodeInfo.getChild(1).getText().toString().contains(WECHAT_ALREADY_DONE) || accessibilityNodeInfo.getChild(1).getText().toString().contains(WECHAT_ALREADY_NONE))) {
+                String redPackageText = accessibilityNodeInfo.getChild(1).getText().toString();
+                if ((redPackageText.contains(WECHAT_ALREADY_DONE) || redPackageText.contains(WECHAT_ALREADY_NONE) || redPackageText.contains(WECHAT_ALREADY_DONE))) {
                     if (i == UnPackage.size() - 1) {
                         return false;
                     } else {
@@ -503,6 +509,7 @@ public class HongbaoService extends AccessibilityService implements SharedPrefer
         while (iterator.hasNext()) {
             AccessibilityNodeInfo accessibilityNodeInfo = ((AccessibilityNodeInfo) iterator.next()).getParent();
             if (accessibilityNodeInfo.getChildCount() == 3) {
+                mUnsureCount = mUnsureCount + 1;
                 accessibilityNodeInfo.getChild(0).getParent().performAction(AccessibilityNodeInfo.ACTION_CLICK);
                 // Clock ? PostDelay ?
                 SystemClock.sleep(200L);
